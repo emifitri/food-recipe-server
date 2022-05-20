@@ -2,22 +2,6 @@ const {Recipe, User, Category} = require('../models')
 const { Op } = require("sequelize");
 
 class RecipeController {
-    // static getAllRecipe (req, res,next) {
-    //     Recipe.findAll({
-    //         include: [User, Category],
-    //         order: [['id', 'DESC']],
-         
-    //     })
-    //     .then((data) => {
-    //         res.status(200).json(data)
-    //     }).catch((err) => {
-    //         next({
-    //             message: 'Internal Server Error'
-    //         })
-    //         // console.log(err);
-    //     });
-    // }   
-
     static getAllRecipe(req, res, next){
         const limitPage = 6
         const offsetPage = +req.query.page ? +req.query.page * + limitPage : 0
@@ -80,34 +64,7 @@ class RecipeController {
             res.status(500).json(err)
         });
     }
-
-    // static detailRecipe(req, res, next){
-    //     Recipe.findOne({
-    //         where : {
-    //             id : req.params.recipeId
-    //         },
-    //         include : [
-    //             {
-    //                 model : User,
-    //                 attributes : ['username','role']
-    //             },
-    //             {
-    //                 model : Category,
-    //                 attributes : ['name']
-    //             }
-    //         ]
-    //     })
-    //     .then((data) => {
-    //         if (data === null) {
-    //             throw {status : 404, message : 'Recipe not found'}
-    //         } else {
-    //             res.status(200).json(data)
-    //         }
-    //     })
-    //     .catch((err) => {
-    //         next(err)
-    //     });
-    // }
+    
     static showDetail (req, res, next) {
         Recipe.findByPk(+req.params.recipeId)
         .then((data) => {
